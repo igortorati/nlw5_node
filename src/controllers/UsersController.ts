@@ -18,7 +18,7 @@ class UsersController{
 
         // Tentar criar usuário e retornar resposta
         try {
-            const user = await usersService.create({email});
+            const user = await usersService.create(email);
             return response.json(user);
         // Tratar erro caso não seja possível criar o uruário
         } catch(err) {

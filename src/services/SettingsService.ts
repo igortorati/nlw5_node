@@ -8,10 +8,10 @@ interface ISettingsCreate {
 }
 
 class SettingsService {
-    private settingsRepository: Repository<Setting>;
+    private settingsRepository: SettingsRepository;
 
     constructor() {
-    this.settingsRepository = getCustomRepository(SettingsRepository);
+        this.settingsRepository = getCustomRepository(SettingsRepository);
     }
 
     async create({ chat, username } : ISettingsCreate) {
@@ -34,6 +34,25 @@ class SettingsService {
         await this.settingsRepository.save(setting);
 
         return setting;
+    }
+
+    // Recuperando o status do chat
+    async findByUsername(username: string) {
+        const settings = await this.settingsRepository.findOne({
+            username,
+        });
+        return settings;
+    }
+
+    // Atualizando o status do chat
+    async update(username: string, chat: boolean) {
+        const settings = await this.settingsRepository.createQueryBuilder()
+        .update(Setting)
+        .set({ chat })
+        .where("username = :username", {
+            username
+        })
+        .execute();
     }
 }
 

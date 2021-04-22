@@ -10,7 +10,11 @@ const settingsController = new SettingsController();
 const usersController = new UsersController();
 const messagesController = new MessagesController()
 
+// rotas de recuperação e atualização do status do chat
 routes.post("/settings", settingsController.create);
+routes.get("/settings/:username", settingsController.findByUsername);
+routes.put("/settings/:username", settingsController.update);
+
 // Adicionando a rota de criação de users
 routes.post("/users", usersController.create);
 routes.post("/messages", messagesController.create);

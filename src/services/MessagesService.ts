@@ -1,5 +1,4 @@
 import { getCustomRepository, Repository } from "typeorm";
-import { Message } from "../entities/Message";
 import { MessagesRepository } from "../repositories/MessagesRepository";
 
 interface IMessageCreate {
@@ -9,8 +8,8 @@ interface IMessageCreate {
 }
 
 class MessagesService {
-    private messagesRepository: Repository<Message>;
-    
+    private messagesRepository: MessagesRepository;
+
     constructor() {
         this.messagesRepository = getCustomRepository(MessagesRepository);
     }
@@ -32,7 +31,7 @@ class MessagesService {
         // Busca mensagens por id do usuário e também retorna o atributo user da
         // entidade User
         const list = await this.messagesRepository.find({
-            where: {user_id},
+            where: { user_id },
             relations: ["user"],
         });
 

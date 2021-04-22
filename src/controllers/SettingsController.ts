@@ -22,6 +22,27 @@ class SettingsController {
         
         
     }
+
+    // Recuperando o status do chat
+    async findByUsername(request: Request, response: Response) {
+        const { username } = request.params;
+        const settingsService = new SettingsService();
+        const settings = await settingsService.findByUsername(username);
+
+        return response.json(settings);
+
+    }
+
+    // Atualizando o status do chat
+    async update(request: Request, response: Response) {
+        const { username } = request.params;
+        const { chat } = request.body;
+        const settingsService = new SettingsService();
+        const settings = await settingsService.update(username, chat);
+
+        return response.json(settings);
+
+    }
 }
 
 export { SettingsController }
