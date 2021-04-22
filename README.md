@@ -54,3 +54,19 @@ import "./database";
 "emitDecoratorMetadata": true,
 ```
 9. A responsabilidade de gerar o uuid é do projeto, dessa forma precisamos incluir a biblioteca uuid com o comando "yarn add uuid" e as tipagens com o comando "yarn add @types/uuid -D".
+
+
+## Instruções para criação do Websocket (Dia 4):
+
+1. Instalar o socket.io com o comando:
+```typescript
+yarn add socket.io
+```
+2. Instalar a tipagem do socket.io como dependência de desenvolvimento com o comando:
+```typescript
+yarn add @types/socket.io -D
+```
+3. Instalar engine ejs com o comando:
+```typescript
+yarn add ejs
+```

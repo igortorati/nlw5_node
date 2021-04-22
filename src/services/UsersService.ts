@@ -20,7 +20,7 @@ class UsersService {
         // no metodo create verificar se usuário existe, se existir emite erro
         const userAlreadyExists = await this.usersRepository.findOne({
             email
-        });
+        }); 
         if (userAlreadyExists) {
             return userAlreadyExists;
         }
