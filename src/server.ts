@@ -1,5 +1,7 @@
 import { http } from "./http";
-import "./websocket/client";
+import "./websocket/client"; // importa funcionalidades do cliente
+import "./websocket/admin"; // importa funcionalidades do admin (claro, em
+// um sistema real, existiria login para isso)
 
 http.listen(3333, () => console.log("Server running on port 3333."));
 

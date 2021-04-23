@@ -19,6 +19,10 @@ app.get("/pages/client", (request, response) => { // Defino para rendenizar a p�
     // o usuário acessar /pages/client
     return response.render("html/client.html");
 })
+app.get("/pages/admin", (request, response) => { // Defino para rendenizar a página client.html quando
+    // o usuário acessar /pages/client
+    return response.render("html/admin.html");
+})
 
 const http = createServer(app); // criando protocolo http
 const io = new Server(http); // criando o protocolo websocket

@@ -24,16 +24,24 @@ class ConnectionsService{
         });
 
         await this.connectionsRepository.save(connection);
-
-        return connection;
     }
 
     async findByUserId(user_id: string) {
-        const connection = await this.connectionsRepository.findOne({
+        const connection = this.connectionsRepository.findOne({
             user_id,
         });
 
         return connection;
+    }
+
+    // Recupero usuários não atendidos
+    async findAllWithoutAdmin() {
+        const connections = this.connectionsRepository.find({
+            where: { admin_id: null },
+            relations: ["user"],
+        });
+
+        return connections;
     }
 }
 
