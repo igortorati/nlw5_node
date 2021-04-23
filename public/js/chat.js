@@ -1,5 +1,9 @@
+let socket_admin_id = null;
+let emailUser = null;
+let socket = null;
+
 document.querySelector("#start_chat").addEventListener("click", (event) => {
-    const socket = io();
+    socket = io();
 
     const chat_help = document.getElementById("chat_help");
     chat_help.style.display = "none";
@@ -8,6 +12,8 @@ document.querySelector("#start_chat").addEventListener("click", (event) => {
     chat_in_support.style.display = "block";
 
     const email = document.getElementById("email").value;
+    emailUser = email;
+
     const text = document.getElementById("txt_help").value;
 
     
@@ -30,7 +36,7 @@ document.querySelector("#start_chat").addEventListener("click", (event) => {
     socket.on("client_list_all_messages", (message) => {
         var template_client = document.getElementById("message-user-template").innerHTML;
         var template_admin = document.getElementById("admin-template").innerHTML;
-        console.log(message);
+
         message.forEach((message) => {
             // Caso a mensagem não tenho o id do admin é uma mensagem enviada pelo cliente
             if(message.admin_id === null) {
@@ -48,4 +54,43 @@ document.querySelector("#start_chat").addEventListener("click", (event) => {
             }
         });
     });
+
+    // Usuário recebe mensagem do admin e ela é mostrada no chat
+    socket.on("admin_send_to_client", (message) =>{
+        socket_admin_id = message.socket_id;
+        const template_admin = document.getElementById("admin-template").innerHTML;
+
+        const rendered = Mustache.render(template_admin, {
+            message_admin: message.text,
+        });
+
+        document.getElementById("messages").innerHTML += rendered;
+    });
 });
+
+// Usuário envia mensagem para o Admin usando o botão
+document.querySelector("#send_message_button").addEventListener("click", (event) => {
+    const text = document.getElementById("message_user");
+
+    const params = {
+        text: text.value,
+        socket_admin_id,
+    }
+
+
+    // Emite o evento contendo os parametros
+    socket.emit("client_send_to_admin", params);
+
+    // Atualiza o chat do usuário
+    const template_client = document.getElementById("message-user-template").innerHTML;
+
+    const rendered = Mustache.render(template_client, {
+        message: text.value,
+        email: emailUser,
+    });
+
+    document.getElementById("messages").innerHTML += rendered;
+    
+    text.value = "";
+})
+
