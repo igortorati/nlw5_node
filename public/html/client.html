@@ -79,7 +79,7 @@
 
         <div class="first_email">
           <span>Seu e-mail</span>
-          <input type="text" name="" id="email" />
+          <input type="text" name="" id="email" autocomplete="off"/>
         </div>
 
         <div class="button">
@@ -112,6 +112,7 @@
     }
 
     function openChat() {
+      document.getElementById("btn_support").style.display = "none";
       chat.style.display = "block";
     }
 

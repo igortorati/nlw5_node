@@ -16,7 +16,6 @@ class UsersService {
     }
 
     async create(email: string) {
-        console.log("Email: ", email);
         // no metodo create verificar se usuário existe, se existir emite erro
         const userAlreadyExists = await this.usersRepository.findOne({
             email
@@ -40,9 +39,7 @@ class UsersService {
     }
 
     async findByEmail(email: string) {
-        console.log("findByEmail");
         const user = await this.usersRepository.findOne({ email });
-        console.log("found");
         return user;
     }
 }

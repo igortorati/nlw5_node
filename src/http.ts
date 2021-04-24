@@ -28,7 +28,7 @@ const http = createServer(app); // criando protocolo http
 const io = new Server(http); // criando o protocolo websocket
 
 io.on("connection", (socket: Socket) => { // quando usuário se conecta
-    console.log("Se conectou", socket.id);
+    console.log(socket.id, " se conectou.");
 });
 
 app.use(express.json()); // Define que o quer virá é um json
